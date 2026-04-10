@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 export async function POST(req: Request) {
   try {
@@ -11,6 +11,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "title and company are required" }, { status: 400 });
     }
 
+    const supabaseAdmin = getSupabaseAdmin();
     const { error } = await supabaseAdmin.from("saved_jobs").insert({
       clerk_user_id: userId ?? "anonymous",
       external_id: externalId ?? null,

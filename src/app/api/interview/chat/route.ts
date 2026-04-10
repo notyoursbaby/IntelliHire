@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { getGroqClient, GROQ_MODEL } from "@/lib/groq";
 import { safeJsonParse } from "@/lib/json-response";
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 type InterviewBody = {
   mode: "start" | "answer";
@@ -90,6 +90,7 @@ ${jobDescription}`;
     const done = nextIndex >= 5;
     const nextQuestion = done ? null : questions[nextIndex];
 
+    const supabaseAdmin = getSupabaseAdmin();
     await supabaseAdmin.from("interviews").insert({
       clerk_user_id: userId ?? "anonymous",
       role_title: roleTitle,

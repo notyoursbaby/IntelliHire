@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { getGroqClient, GROQ_MODEL } from "@/lib/groq";
 import { safeJsonParse } from "@/lib/json-response";
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 type AtsOutput = {
   score: number;
@@ -64,6 +64,7 @@ ${jobDescription}`;
       ? result.improved_bullets.slice(0, 5)
       : [];
 
+    const supabaseAdmin = getSupabaseAdmin();
     await supabaseAdmin.from("resumes").insert({
       clerk_user_id: userId ?? "anonymous",
       extracted_text: resumeText,
