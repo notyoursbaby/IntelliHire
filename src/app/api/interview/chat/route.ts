@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import groq, { GROQ_MODEL } from "@/lib/groq";
+import { getGroqClient, GROQ_MODEL } from "@/lib/groq";
 import { safeJsonParse } from "@/lib/json-response";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
@@ -17,6 +17,7 @@ type InterviewBody = {
 export async function POST(req: Request) {
   try {
     const { userId } = auth();
+    const groq = getGroqClient();
 
     const body = (await req.json()) as InterviewBody;
     const roleTitle = body.roleTitle?.trim();

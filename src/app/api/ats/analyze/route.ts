@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import groq, { GROQ_MODEL } from "@/lib/groq";
+import { getGroqClient, GROQ_MODEL } from "@/lib/groq";
 import { safeJsonParse } from "@/lib/json-response";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
@@ -42,6 +42,7 @@ ${resumeText}
 Use this job description:
 ${jobDescription}`;
 
+    const groq = getGroqClient();
     const completion = await groq.chat.completions.create({
       model: GROQ_MODEL,
       temperature: 0.2,
