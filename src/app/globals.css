@@ -1,26 +1,44 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 222 47% 7%;
+    --foreground: 214 32% 91%;
+    --card: 223 35% 11%;
+    --card-foreground: 214 32% 91%;
+    --popover: 223 35% 11%;
+    --popover-foreground: 214 32% 91%;
+    --primary: 263 90% 67%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 216 34% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 191 91% 56%;
+    --accent-foreground: 223 47% 7%;
+    --destructive: 0 62% 47%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 218 27% 22%;
+    --input: 218 27% 22%;
+    --ring: 263 90% 67%;
+    --radius: 0.8rem;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background-image:
+      radial-gradient(
+        circle at top left,
+        hsl(263 90% 67% / 0.18),
+        transparent 30%
+      ),
+      radial-gradient(circle at 80% 20%, hsl(191 91% 56% / 0.12), transparent 25%);
+    min-height: 100vh;
+  }
 }
